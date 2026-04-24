@@ -11,7 +11,7 @@ export function TaskManager() {
             <CreateTaskButton onClick={() => setShowForm(true)} />
 
             {showForm && (
-                <TaskForm />
+                <TaskForm initialData={null} />
             )}
         </>
     )
