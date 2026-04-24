@@ -1,12 +1,27 @@
 import { useState, useEffect } from "react"
 import "./TaskForm.css"
 
-export function TaskForm({ initialData }) {
+export function TaskForm({ initialData, onSubmit }) {
     const [title, setTitle] = useState(initialData?.title || "");
     const [description, setDescription] = useState(initialData?.description || "");
     const [date, setDate] = useState(initialData?.date || "");
     const [isComplete, setIsComplete] = useState(initialData?.isComplete || false);
 
+
+    // handle submit
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log("form submitted!")
+
+        const taskData = {
+            title,
+            description,
+            date, 
+            isComplete
+        }
+
+        onSubmit(taskData);
+    }
 
     useEffect(() => {
         if (initialData) {
@@ -24,7 +39,7 @@ export function TaskForm({ initialData }) {
 
     return (
 
-        <form className="task-form">
+        <form className="task-form" onSubmit={handleSubmit}>
             <div className="form-group">
                 {/* Title */}
                 <label htmlFor="title">Title</label>

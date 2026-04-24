@@ -11,7 +11,11 @@ export function TaskManager() {
             <CreateTaskButton onClick={() => setShowForm(true)} />
 
             {showForm && (
-                <TaskForm initialData={null} />
+                <TaskForm initialData={null} onSubmit={(task) => {
+                    console.log(task)
+                    setShowForm(false)
+                }} 
+                />
             )}
         </>
     )
