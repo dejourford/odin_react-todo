@@ -25,16 +25,27 @@ export function TaskManager() {
             {showForm && (
                 <TaskForm initialData={null} onSubmit={(task) => {
                     console.log(task)
-                    setTasks(prev => [...prev, {id: crypto.randomUUID(), ...task}])
+                    setTasks(prev => [...prev, { id: crypto.randomUUID(), ...task }])
                     setShowForm(false)
-                }} 
+                }}
                 />
             )}
 
-            {tasks.map((task) => 
-                <Task key={task.id} task={task} />
-            )}
-
+            <section className="task-grid">
+                {tasks.map((task) => (
+                    <Task
+                        key={task.id}
+                        task={task}
+                        onToggle={(id) => {
+                            setTasks(prev =>
+                                prev.map(t =>
+                                    t.id === id ? { ...t, isComplete: !t.isComplete } : t
+                                )
+                            );
+                        }}
+                    />
+                ))}
+            </section>
         </>
     )
 }
