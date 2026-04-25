@@ -1,10 +1,21 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CreateTaskButton } from "../CreateTaskButton/CreateTaskButton";
 import { TaskForm } from "../TaskForm/TaskForm";
 
 export function TaskManager() {
     // create showForm state
     const [showForm, setShowForm] = useState(false);
+
+    // state for tasks
+    const [tasks, setTasks] = useState(() => {
+        const saved = localStorage.getItem('tasks');
+        return saved ? JSON.parse(saved) : []
+    })
+
+    useEffect(() => {
+        localStorage.setItem('tasks', JSON.stringify(tasks))
+    }, [tasks])
+
 
     return (
         <>
@@ -13,10 +24,13 @@ export function TaskManager() {
             {showForm && (
                 <TaskForm initialData={null} onSubmit={(task) => {
                     console.log(task)
+                    setTasks(prev => [...prev, task])
                     setShowForm(false)
                 }} 
                 />
             )}
+
+
         </>
     )
 }
