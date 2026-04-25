@@ -7,20 +7,17 @@ export function TaskForm({ initialData, onSubmit }) {
     const [date, setDate] = useState(initialData?.date || "");
     const [isComplete, setIsComplete] = useState(initialData?.isComplete || false);
 
-
     // handle submit
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log("form submitted!")
 
-        const taskData = {
+        onSubmit({
             title,
             description,
             date, 
             isComplete
-        }
-
-        onSubmit(taskData);
+        });
     }
 
     useEffect(() => {
