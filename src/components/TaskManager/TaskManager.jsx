@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { CreateTaskButton } from "../CreateTaskButton/CreateTaskButton";
 import { TaskForm } from "../TaskForm/TaskForm";
+import { Task } from "../Task/Task";
 
 export function TaskManager() {
     // create showForm state
@@ -24,12 +25,15 @@ export function TaskManager() {
             {showForm && (
                 <TaskForm initialData={null} onSubmit={(task) => {
                     console.log(task)
-                    setTasks(prev => [...prev, task])
+                    setTasks(prev => [...prev, {id: crypto.randomUUID(), ...task}])
                     setShowForm(false)
                 }} 
                 />
             )}
 
+            {tasks.map((task) => 
+                <Task key={task.id} task={task} />
+            )}
 
         </>
     )
